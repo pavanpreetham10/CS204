@@ -41,26 +41,37 @@ void delfirst(node** head)
 }
 
 
-int del(int a,int b,node** head)
-{
-	int c,d;
-	node* temp;
-	node* temp2;
-        temp=*head;
-	while(temp!=NULL)
-	{
-		c=temp->x;
-		d=temp->y;
-		if(c==a && d==b)
-		{
-			temp2=temp->next;
-			free(temp);
-                        temp=temp2;
-                        return 1;
-		}
+ void del(int x,int y,node** head)
+ {
+	node* str=*head;
+        if(*head==NULL)
+	{ 
+		cout<<-1; 
+		return;
 	}
-return 0;
-}
+ 	if(str->x==x && str->y==y) 
+	{ 
+		delfirst(head);
+		return;
+	}
+ 	node *temp=str;
+ 	node *prev=NULL;
+        int flag=0;
+ 	while(temp->next!=NULL)
+ 	{
+ 		prev=temp;
+ 		temp=temp->next;
+ 		if(temp->x==x && temp->y==y) 
+ 		{
+                   prev->next=temp->next;
+                   free(temp);
+                   flag=1;
+                   cout<<0<<"\n"; break;   
+ 		}
+ 	}
+   if(flag==0) cout<<-1;
+   
+ }
 
 
 void Search(node** head,float d)
