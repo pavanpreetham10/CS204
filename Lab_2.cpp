@@ -5,70 +5,70 @@ using namespace std;
  
 class node 
 { 
-	public: 
-	int x,y; 
-	node *next; 
+ public: 
+ int x,y; 
+ node *next; 
 }; 
 
 
 int addstart(int a,int b,node** head)
 {
-	node* new_node = new node();
-	node* temp;
-	new_node->x=a;
-	new_node->y=b;
-	temp=*head;
-	new_node->next=temp;
-	*head=new_node;
-	return 0;
+ node* new_node = new node();
+ node* temp;
+ new_node->x=a;
+ new_node->y=b;
+ temp=*head;
+ new_node->next=temp;
+ *head=new_node;
+ return 0;
 }
 
 
 void delfirst(node** head)
 {
-	node* temp;
-	if(*head==NULL)
-		cout<<"no node";
-	else
-	{
+ node* temp;
+ if(*head==NULL)
+	cout<<"no node";
+ else
+{
 		
-		temp=*head;
-		*head=temp->next;
-		free(temp);
+ 	temp=*head;
+	*head=temp->next;
+	free(temp);
 
-	}
+}
 
 }
 
 
  void del(int x,int y,node** head)
- {
-	node* str=*head;
-        if(*head==NULL)
-	{ 
-		cout<<-1; 
-		return;
-	}
- 	if(str->x==x && str->y==y) 
-	{ 
-		delfirst(head);
-		return;
-	}
- 	node *temp=str;
- 	node *prev=NULL;
-        int flag=0;
- 	while(temp->next!=NULL)
- 	{
- 		prev=temp;
- 		temp=temp->next;
- 		if(temp->x==x && temp->y==y) 
- 		{
-                   prev->next=temp->next;
-                   free(temp);
-                   flag=1;
-                   cout<<0<<"\n"; break;   
- 		}
- 	}
+{
+  node* str=*head;
+  if(*head==NULL)
+{ 
+  cout<<-1; 
+  return;
+}
+  if(str->x==x && str->y==y) 
+{ 
+  delfirst(head);
+  return;
+}
+   node *temp=str;
+   node *prev=NULL;
+   int flag=0;
+  while(temp->next!=NULL)
+{
+  prev=temp;
+  temp=temp->next;
+    if(temp->x==x && temp->y==y) 
+{
+    prev->next=temp->next;
+    free(temp);
+    flag=1;
+    cout<<0<<"\n"; break;   
+}
+}
    if(flag==0) cout<<-1;
    
  }
@@ -76,54 +76,54 @@ void delfirst(node** head)
 
 void Search(node** head,float d)
 {
-	int a,b;
-	node* temp;
-	temp=*head;
-	while(temp!=NULL)
-	{
-		a=temp->x;
-		b=temp->y;
-		if((a*a+b*b)<=(d*d))
-		{
-			cout<<"("<<a<<","<<b<<")"<<'\n';
-		}
-		temp=temp->next;
-	}
+ int a,b;
+ node* temp;
+ temp=*head;
+  while(temp!=NULL)
+{
+  a=temp->x;
+  b=temp->y;
+  if((a*a+b*b)<=(d*d))
+{
+   cout<<"("<<a<<","<<b<<")"<<'\n';
+}
+  temp=temp->next;
+}
 }
 
 
 bool search(int a,int b,node** head)
 {
-	int c,d;
-	node* temp;
-	temp=*head;
-	while(temp!=NULL)
-	{
-		c=temp->x;
-		d=temp->y;
-		if(c==a && d==b)
-		{
-  			cout<<"true"<<'\n';
-			return true;
-		}
-	temp=temp->next;	
+ int c,d;
+ node* temp;
+ temp=*head;
+  while(temp!=NULL)
+{
+  c=temp->x;
+  d=temp->y;
+   if(c==a && d==b)
+{
+   cout<<"true"<<'\n';
+   return true;
+}
+ temp=temp->next;	
 
-	}
-	if(temp==NULL){cout<<"false"<<'\n'; return false;}
+}
+  if(temp==NULL){cout<<"false"<<'\n'; return false;}
 
 }
 
 
 int length(node** head)
 {
-	int i=0;
-	node* temp;
-	temp=*head;
-	while(temp!=NULL)
-	{
-		i++;
-                temp=temp->next;
-	}
+ int i=0;
+ node* temp;
+ temp=*head;
+ while(temp!=NULL)
+{
+ i++;
+ temp=temp->next;
+}
         cout<<i<<'\n';
 	return i;
 }
