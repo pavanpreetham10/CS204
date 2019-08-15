@@ -1,181 +1,168 @@
+#include<bits/stdc++.h>
 #include<iostream>
 #include<string>
-#include<bits/stdc++.h>
 using namespace std;
- 
-class node 
-{ 
- public: 
- int x,y; 
- node *next; 
-}; 
-
-
-int addstart(int a,int b,node** head)
+struct node
 {
- node* new_node = new node();
- node* temp;
- new_node->x=a;
- new_node->y=b;
- temp=*head;
- new_node->next=temp;
- *head=new_node;
- return 0;
+ int x;
+ int y;
+ struct node* next;
+};
+
+struct node* head = NULL;
+int addFirst(int x, int y)
+{
+ struct node* b = NULL;
+ b = new node();
+ b->x = x;
+ b->y = y;
+ b->next=NULL;
+ if(head == NULL)
+{
+ 	head = b;
+	return 0;
 }
-
-
-void delfirst(node** head)
-{
- node* temp;
- if(*head==NULL)
-	cout<<"-1"<<'\n';
-	return -1;
  else
 {
-		
- 	temp=*head;
-	*head=temp->next;
-	free(temp);
-
+	b->next = head;
+	head = b;
+	return 0;
+}
 }
 
-}
-
-
- void del(int x,int y,node** head)
+int DelFirst()
 {
-  node* str=*head;
-  if(*head==NULL)
-{ 
-  cout<<-1; 
-  return;
+ struct node* b=head;
+ if(head == NULL){
+ cout<<"-1\n";
+ return -1;
 }
-  if(str->x==x && str->y==y) 
-{ 
-  delfirst(head);
-  return;
+ else
+{
+	head = head->next;
+	delete b;
+	return 0;
 }
-   node *temp=str;
-   node *prev=NULL;
-   int flag=0;
-  while(temp->next!=NULL)
-{
-  prev=temp;
-  temp=temp->next;
-    if(temp->x==x && temp->y==y) 
-{
-    prev->next=temp->next;
-    free(temp);
-    flag=1;
-    cout<<0<<"\n"; break;   
-}
-}
-   if(flag==0) cout<<-1;
-   
- }
-
-
-void Search(node** head,float d)
-{
- int a,b;
- node* temp;
- temp=*head;
-  while(temp!=NULL)
-{
-  a=temp->x;
-  b=temp->y;
-  if((a*a+b*b)<=(d*d))
-{
-   cout<<"("<<a<<","<<b<<")"<<'\n';
-}
-  temp=temp->next;
 }
 
+int Del(int x, int y)
+{
+ struct node* b = head;
+ struct node* temp = NULL;
+ if(b->x && b->y == y)
+{
+	head = head->next;
+	delete b;
+	return 0;
+}
+ while((b->x != x || b->y != y) && b->next != NULL)
+{
+	temp = b;
+	b= b->next;
+}
+	
+ if(b->x == x && b->y == y){
+ temp->next = b->next;
+ delete b;
+}
+ else
+{
+	return -1;
+}
+	return 0;
 }
 
-
-bool search(int a,int b,node** head)
+int Length()
 {
- int c,d;
- node* temp;
- temp=*head;
-  while(temp!=NULL)
-{
-  c=temp->x;
-  d=temp->y;
-   if(c==a && d==b)
-{
-   cout<<"true"<<'\n';
-   return true;
+ int z =0 ;
+ struct node* ptr = head;
+ while(ptr != NULL){
+	z++;
+	ptr=ptr->next;
 }
- temp=temp->next;	
-
-}
-  if(temp==NULL){cout<<"false"<<'\n'; return false;}
-
+	return z;
 }
 
-
-int length(node** head)
+bool Search(int x, int y)
 {
- int i=0;
- node* temp;
- temp=*head;
- while(temp!=NULL)
+ struct node* ptr = head;
+ while(ptr != NULL){
+ if(ptr->x == x && ptr->y ==y)
 {
- i++;
- temp=temp->next;
+	return true;
 }
-        cout<<i<<'\n';
-	return i;
+	ptr=ptr->next;
+}
+	return false;
+}
+
+int Search(float d)
+{
+ int aa = 0;
+ struct node* ptr = head;
+ while(ptr != NULL)
+{
+ int y = ptr->x;
+ int z = ptr->y;
+ if(y*y+z*z <= d*d)
+{
+	aa++;
+}
+	ptr=ptr->next;
+}
+ if(aa == 0){aa = -1;}
+ return aa;
 }
 
 
 int main()
 {
-int i,t,a,b,f;	
-float d;
-cin >>t;
-node** s;
-*s=NULL;
-for(i=0;i<t;i++)
+ long long t;
+ cin>>t;
+ while(t--)
 {
-	cin>> f;
-	switch(f)
+ long long x;
+ cin>>x;
+ if(x == 1)
+{
+ int y, z;
+ cin>>y>>z;
+ addFirst(y, z);
+}
+ else if(x==2)
+{
+ DelFirst();
+}
+ else if(x == 3)
+{
+	int y, z;
+	cin>>y>>z;
+	int k = Del(y, z);
+	if(k){cout<<k<<endl;}
+}
+ else if(x == 4)
+{
+	float d;
+	cin>>d;
+	int k=Search(d);
+	cout<<k<<endl;
+}
+ else if(x == 5)
+{
+	int y, z;
+	cin>>y>>z;
+	if(Search(y, z))
 	{
-		case 1:	
-			cin >>a;
-			cin >>b;
-			addstart(a,b,s);
-			
-		break;
-		case 2:						
-			delfirst(s);
-			
-		break;
-		case 3:
-			cin >>a;
-			cin >>b;
-			del(a,b,s);
-			
-		break;
-		case 4:
-			cin>>d;
-			Search(s,d);
-			
-		break;
-		case 5:
-			cin >>a;
-			cin >>b;
-			search(a,b,s);
-			
-		break;
-		case 6:
-			length(s);
-			
-		break;
-		default: cout<< "invalid";
+		cout<<"True\n";
+	}
+	 else
+	{
+		cout<<"False\n";
 	}
 }
-return 0;
+	else if(x==6)
+	{
+		cout<<Length()<<endl;
+	}
+}
 }
