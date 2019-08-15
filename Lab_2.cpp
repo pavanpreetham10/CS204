@@ -28,7 +28,8 @@ void delfirst(node** head)
 {
  node* temp;
  if(*head==NULL)
-	cout<<"no node";
+	cout<<"-1"<<'\n';
+	return -1;
  else
 {
 		
@@ -89,6 +90,7 @@ void Search(node** head,float d)
 }
   temp=temp->next;
 }
+
 }
 
 
